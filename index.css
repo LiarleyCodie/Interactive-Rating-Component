@@ -1,0 +1,227 @@
+:root {
+  font-size: 62.5%;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  list-style-type: none;
+  border-style: none;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Overpass", sans-serif;
+  background: hsl(216, 12%, 8%);
+  color: hsl(0, 0%, 100%);
+  display: grid;
+  place-items: center;
+}
+
+.container {
+  height: 34rem;
+  width: 90%;
+  max-width: 31rem;
+  background: hsl(213, 19%, 18%);
+  padding: 2rem 2rem 3rem 2rem;
+  border-radius: 1.5rem;
+  border-top: 0.1rem solid hsl(213, 19%, 25%);
+  position: relative;
+  animation: slideContainer 500ms ease backwards;
+}
+.container[data-current-screen=submit] .limiter .screen-rate {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.container[data-current-screen=submit] .limiter .screen-submit {
+  transform: translateX(0);
+  opacity: 1;
+}
+.container[data-current-screen=submit] .limiter .screen-submit .illustration {
+  animation: zoomAndShake 700ms ease backwards 500ms;
+}
+.container .limiter {
+  display: flex;
+  height: 100%;
+  position: relative;
+}
+.container .limiter .title {
+  font-weight: 700;
+  font-size: 2.4rem;
+  margin: 1.5rem 0;
+}
+.container .limiter .description {
+  font-size: 1.4rem;
+  line-height: 150%;
+  color: hsl(217, 12%, 63%);
+}
+.container .limiter .screen-rate {
+  position: absolute;
+  transition-property: transform, opacity;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+}
+.container .limiter .screen-rate .icon {
+  display: grid;
+  background: hsl(213, 19%, 23%);
+  width: 3.6rem;
+  height: 3.6rem;
+  padding: 1rem;
+  border-radius: 50%;
+}
+.container .limiter .screen-rate .icon img {
+  display: flex;
+  transform: scale(0.8);
+  animation: starFall 1s ease backwards 100ms;
+}
+.container .limiter .screen-rate .rating {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.container .limiter .screen-rate .rating li .rate {
+  width: 4rem;
+  height: 4rem;
+  background: hsl(213, 19%, 23%);
+  color: hsl(217, 12%, 63%);
+  font-size: 1.4rem;
+  font-family: inherit;
+  border-radius: 50%;
+  margin: 2rem 0;
+  cursor: pointer;
+  transition-property: background, color;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
+.container .limiter .screen-rate .rating li .rate.hovering {
+  background: hsl(25, 97%, 53%);
+  color: hsl(0, 0%, 100%);
+}
+.container .limiter .screen-rate .rating li .rate.hover {
+  background: hsl(216, 12%, 54%);
+  color: hsl(0, 0%, 100%);
+}
+.container .limiter .screen-rate .rating li .rate.active {
+  background: hsl(25, 97%, 53%);
+  color: white;
+}
+.container .limiter .screen-rate .rating li .rate.active:hover {
+  background: hsl(25, 97%, 60%);
+}
+.container .limiter .screen-rate .submit {
+  width: 100%;
+  padding: 1.4rem;
+  font-family: inherit;
+  font-weight: 700;
+  color: hsl(0, 0%, 100%);
+  background: hsl(25, 97%, 53%);
+  border-radius: 5rem;
+  letter-spacing: 0.2rem;
+  cursor: pointer;
+  transition: background 100ms ease;
+}
+.container .limiter .screen-rate .submit:hover {
+  background: hsl(25, 97%, 60%);
+}
+.container .limiter .screen-submit {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transform: translateX(100%);
+  opacity: 0;
+  transition-property: transform, opacity;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+}
+.container .limiter .screen-submit .illustration {
+  margin: 1rem 0;
+  width: 50%;
+  height: auto;
+}
+.container .limiter .screen-submit .informations {
+  background: hsl(213, 19%, 23%);
+  font-size: 1.4rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 2rem;
+  color: hsl(25, 97%, 53%);
+  margin: 1rem 0;
+}
+.container .alert {
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  left: 0;
+  top: 0;
+  visibility: hidden;
+  animation: inAlert 300ms ease backwards paused;
+}
+.container .alert::after {
+  content: "Please, Rate us!";
+  font-size: 2.2rem;
+  font-weight: 700;
+  position: absolute;
+  width: -moz-max-content;
+  width: max-content;
+  background: hsl(213, 19%, 18%);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes starFall {
+  from {
+    opacity: 0;
+    transform: scale(10) rotateZ(180deg);
+  }
+}
+@keyframes slideContainer {
+  from {
+    transform: translateY(10%);
+    opacity: 0;
+  }
+}
+@keyframes zoomAndShake {
+  30% {
+    transform: scale(1.3) rotateZ(5deg);
+  }
+  40% {
+    transform: scale(1.3) rotateZ(-5deg);
+  }
+  50% {
+    transform: scale(1.3) rotateZ(5deg);
+  }
+  60% {
+    transform: scale(1.3) rotateZ(-5deg);
+  }
+  70% {
+    transform: scale(1.3) rotateZ(5deg);
+  }
+  80% {
+    transform: scale(1.3) rotateZ(-3deg);
+  }
+}
+@keyframes inAlert {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes outAlert {
+  to {
+    opacity: 0;
+  }
+}
+.toggleRate {
+  padding: 2rem;
+  position: absolute;
+  bottom: 5%;
+  cursor: pointer;
+}/*# sourceMappingURL=index.css.map */

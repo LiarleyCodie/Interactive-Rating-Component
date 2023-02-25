@@ -1,0 +1,284 @@
+:root {
+  font-size: 62.5%;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  list-style-type: none;
+  border-style: none;
+}
+
+// Variables
+// ### Primary
+
+$orange-hover: hsl(25, 97%, 60%);
+$orange: hsl(25, 97%, 53%);
+
+// ### Neutral
+
+$white: hsl(0, 0%, 100%);
+$light-grey: hsl(217, 12%, 63%);
+$medium-grey: hsl(216, 12%, 54%);
+$light-blue: hsl(213, 19%, 23%);
+$light-dark-blue: hsl(213, 19%, 25%);
+$dark-blue: hsl(213, 19%, 18%);
+$very-dark-blue: hsl(216, 12%, 8%);
+
+body {
+  min-height: 100vh;
+  font-family: 'Overpass', sans-serif;
+  background: $very-dark-blue;
+  color: $white;
+  display: grid;
+  place-items: center;
+}
+
+.container {
+  height: 34rem;
+  width: 90%;
+  max-width: 31rem;
+  background: $dark-blue;
+  padding: 2rem 2rem 3rem 2rem;
+  border-radius: 1.5rem;
+  border-top: 0.1rem solid $light-dark-blue;
+  position: relative;
+
+  animation: slideContainer 500ms ease backwards;
+
+  &[data-current-screen="submit"] {
+    .limiter {
+      .screen {
+        &-rate {
+          transform: translateX(-100%);
+          opacity: 0;
+        }
+
+        &-submit {
+          transform: translateX(0);
+          opacity: 1;
+
+          .illustration {
+            animation: zoomAndShake 700ms ease backwards 500ms;
+          }
+        }
+      }
+    }
+  }
+
+  .limiter {
+    display: flex;
+    height: 100%;
+    position: relative;
+
+    .title {
+      font-weight: 700;
+      font-size: 2.4rem;
+      margin: 1.5rem 0;
+    }
+
+    .description {
+      font-size: 1.4rem;
+      line-height: 150%;
+      color: $light-grey;
+    }
+
+    .screen {
+      &-rate {
+        position: absolute;
+        transition-property: transform, opacity;
+        transition-duration: 300ms;
+        transition-timing-function: ease;
+
+        .icon {
+          display: grid;
+          background: $light-blue;
+          width: 3.6rem;
+          height: 3.6rem;
+          padding: 1rem;
+          border-radius: 50%;
+
+          img {
+            display: flex;
+            transform: scale(0.8);
+            animation: starFall 1s ease backwards 100ms;
+          }
+        }
+
+        .rating {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          li {
+            .rate {
+              width: 4rem;
+              height: 4rem;
+
+              background: $light-blue;
+              color: $light-grey;
+              font-size: 1.4rem;
+              font-family: inherit;
+              border-radius: 50%;
+              margin: 2rem 0;
+              cursor: pointer;
+              transition-property: background, color;
+              transition-duration: 200ms;
+              transition-timing-function: ease;
+
+              &.hovering {
+                background: $orange;
+                color: $white;
+              }
+              
+              &.hover {
+                background: $medium-grey;
+                color: $white;
+              }
+
+              &.active {
+                background: $orange;
+                color: white;
+
+                &:hover {
+                  background: $orange-hover;
+                }
+              }
+            }
+          }
+        }
+
+        .submit {
+          width: 100%;
+          padding: 1.4rem;
+          font-family: inherit;
+          font-weight: 700;
+          color: $white;
+          background: $orange;
+          border-radius: 5rem;
+          letter-spacing: 0.2rem;
+          cursor: pointer;
+          transition: background 100ms ease;
+
+          &:hover {
+            background: $orange-hover;
+          }
+        }
+      }
+
+      &-submit {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        transform: translateX(100%);
+        opacity: 0;
+        transition-property: transform, opacity;
+        transition-duration: 300ms;
+        transition-timing-function: ease;
+
+        .illustration {
+          margin: 1rem 0;
+          width: 50%;
+          height: auto;
+
+        }
+
+        .informations {
+          background: $light-blue;
+          font-size: 1.4rem;
+          padding: 0.8rem 1.2rem;
+          border-radius: 2rem;
+          color: $orange;
+          margin: 1rem 0;
+        }
+      }
+    }
+  }
+
+  .alert {
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    left: 0;
+    top: 0;
+    visibility: hidden;
+
+    &::after {
+      content: "Please, Rate us!";
+      font-size: 2.2rem;
+      font-weight: 700;
+      position: absolute;
+      width: max-content;
+      background: $dark-blue;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 10px 20px -10px rgba(0,0,0,0.4);
+    }
+
+    animation: inAlert 300ms ease backwards paused;
+  }
+}
+
+@keyframes starFall {
+  from {
+    opacity: 0;
+    transform: scale(10) rotateZ(180deg);
+  }
+}
+
+@keyframes slideContainer {
+  from {
+    transform: translateY(10%);
+    opacity: 0;
+  }
+}
+
+@keyframes zoomAndShake {
+  30% {
+    transform: scale(1.3) rotateZ(5deg);
+  }
+  40% {
+    transform: scale(1.3) rotateZ(-5deg);
+  }
+  50% {
+    transform: scale(1.3) rotateZ(5deg);
+  }
+  60% {
+    transform: scale(1.3) rotateZ(-5deg);
+  }
+  70% {
+    transform: scale(1.3) rotateZ(5deg);
+  }
+  80% {
+    transform: scale(1.3) rotateZ(-3deg);
+  }
+}
+
+@keyframes inAlert {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes outAlert {
+  to {
+    opacity: 0;
+  }
+}
+
+// I have added this just for force the screen transition
+.toggleRate {
+  padding: 2rem;
+  position: absolute;
+  bottom: 5%;
+  cursor: pointer;
+}
